@@ -33,7 +33,7 @@ export default {
       let cd = new Date();
       this.ampm = cd.getHours() >= 12 ? "PM" : "AM";
 
-      this.time = 12 + ":" + this.zeroPadding(cd.getMinutes(), 2);
+      this.time = cd.getHours() + ":" + this.zeroPadding(cd.getMinutes(), 2);
 
       this.date =
         this.zeroPadding(cd.getMonth() + 1, 2) +
