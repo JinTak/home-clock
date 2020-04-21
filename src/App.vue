@@ -1,16 +1,26 @@
 <template>
   <div id="app">
-    <Clock />
+    <clock />
+    <color-picker></color-picker>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Clock from './components/Clock.vue'
+import ColorPicker from './components/ColorPicker.vue'
 
 export default {
   name: 'app',
   components: {
-    Clock
+    Clock,
+    ColorPicker
+  },
+  computed: {
+    ...mapGetters(["read"]),
+    color() {
+      return this.read("activeColor");
+    }
   }
 }
 </script>
@@ -26,8 +36,8 @@ body {
   height: 100%;
 }
 body {
-  background: #0f3854;
-  background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+  background: #000000;
+  background: radial-gradient(ellipse at center,#3d3d3d 0,#000 70%);
   background-size: 100%;
 }
 p {

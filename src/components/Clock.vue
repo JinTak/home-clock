@@ -1,36 +1,53 @@
 <template>
-  <div id="clock">
+  <div id="clock" :style="{'text-shadow': `0 0 20px ${color}, 0 0 20px ${color}`}">
     <p class="date">{{ date }}</p>
-    <p class="time">{{ time }}<span class="ampm">{{ ampm }}</span></p>
+    <p class="time">
+      {{ time }}<span class="ampm">{{ ampm }}</span>
+    </p>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
-  name: "Clock",
+  name: "clock",
   data() {
     return {
-      time: '',
-      date: '',
-      ampm: '',
-      week: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+      time: "",
+      date: "",
+      ampm: "",
+      week: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
       timerID: null
+    };
+  },
+  computed: {
+    ...mapGetters(["read"]),
+    color() {
+      return this.read("activeColor");
     }
   },
   methods: {
+    ...mapActions(["set"]),
     updateTime() {
       let cd = new Date();
-      this.ampm = cd.getHours() >= 12 ? 'PM' : 'AM';
+      this.ampm = cd.getHours() >= 12 ? "PM" : "AM";
 
-      this.time = cd.getHours() + ':' + this.zeroPadding(cd.getMinutes(), 2);
+      this.time = 12 + ":" + this.zeroPadding(cd.getMinutes(), 2);
 
-      this.date = this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2) + '-' + this.zeroPadding(cd.getFullYear(), 4) +  ' ' + this.week[cd.getDay()];
-
+      this.date =
+        this.zeroPadding(cd.getMonth() + 1, 2) +
+        "-" +
+        this.zeroPadding(cd.getDate(), 2) +
+        "-" +
+        this.zeroPadding(cd.getFullYear(), 4) +
+        " " +
+        this.week[cd.getDay()];
     },
     zeroPadding(num, digit) {
-      let zero = '';
-      for(let i = 0; i < digit; i++) {
-          zero += '0';
+      let zero = "";
+      for (let i = 0; i < digit; i++) {
+        zero += "0";
       }
       return (zero + num).slice(-digit);
     }
@@ -38,6 +55,8 @@ export default {
   mounted() {
     this.timerID = setInterval(this.updateTime, 1000);
     this.updateTime();
+
+    console.log("color", this.color);
   }
 };
 </script>
@@ -53,7 +72,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   color: #daf6ff;
-  text-shadow: 0 0 20px #24cdff, 0 0 20px rgba(10, 175, 230, 0);
+  transition: all 1s;
 
   .time {
     letter-spacing: 0.05em;
