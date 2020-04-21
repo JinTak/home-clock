@@ -49,7 +49,7 @@ export default {
 .color {
   &-picker {
     width: 100%;
-    position: absolute;
+    position: fixed;
     padding: 10px;
     bottom: -115px;
     left: 0;
