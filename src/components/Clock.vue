@@ -31,9 +31,12 @@ export default {
     ...mapActions(["set"]),
     updateTime() {
       let cd = new Date();
+
+      let hours = cd.getHours();
+
       this.ampm = cd.getHours() >= 12 ? "PM" : "AM";
 
-      this.time = cd.getHours() + ":" + this.zeroPadding(cd.getMinutes(), 2);
+      this.time = (hours > 12 ? hours - 12 : hours ) + ":" + this.zeroPadding(cd.getMinutes(), 2);
 
       this.date =
         this.zeroPadding(cd.getMonth() + 1, 2) +
@@ -69,7 +72,7 @@ export default {
   text-align: center;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 49%;
   transform: translate(-50%, -50%);
   color: #daf6ff;
   transition: all 1s;
