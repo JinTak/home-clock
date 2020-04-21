@@ -62,34 +62,42 @@ export default {
 
     &-toggle {
       position: relative;
-      height: 50px;
-      width: 50px;
+      height: 45px;
+      width: 45px;
       margin: 0 auto 30px;
-      transition: all .65s;
-
-      .show & {
-        transform: rotateX(180deg);
-      }
 
       &:before,
       &:after {
         content: "";
-        height: 30px;
-        width: 5px;
+        width: 75%;
+        height: 5px;
         position: absolute;
+        top: 70%;
         background-color: #ffffff;
-        transform-origin: top;
         border-radius: 5px;
         box-shadow: 0 0 10px 5px rgba(255,255,255,.3);
+        transition: all .35s;
       }
 
       &:before {
-        left: 55%;
-        transform: translate(-50%) rotate(40deg);
+        left: 2px;
+        transform: rotate(-50deg);
+        transform-origin: left;
+
+        .show & {
+          transform: rotate(50deg);
+          top: 50%;
+        }
       }
       &:after {
-        left: 50%;
-        transform: translate(-50%) rotate(-40deg);
+        right: 2px;
+        transform: rotate(50deg);
+        transform-origin: right;
+
+        .show & {
+          transform: rotate(-50deg);
+          top: 50%;
+        }
       }
     }
   }
